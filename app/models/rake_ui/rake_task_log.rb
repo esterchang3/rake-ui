@@ -117,7 +117,25 @@ module RakeUi
     end
 
     def rake_command_with_logging
-      "#{rake_command} 2>&1 >> #{log_file_full_path}"
+      output = ""
+      command_with_logging = "#{rake_command} 2>&1"
+      
+      Open3.popen3(command_with_logging) do |stdin, stdout, stderr, wait_thr|
+        while line = stdout.gets
+          output += line
+        end
+        while line = stderr.gets
+          output += line
+        end
+        exit_status = wait_thr.value
+        output += "Exit status: #{exit_status}"
+      end
+      
+      self.output = output
+
+      File.open(log_file_full_path, "a") do |f|
+        f.puts output
+      end
     end
 
     def file_contents
