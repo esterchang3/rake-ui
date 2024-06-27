@@ -117,7 +117,7 @@ module RakeUi
       command += "rake #{name}"
 
       if args
-        command += "#{args}"
+        command += " #{args}"
       end
 
       command

@@ -24,6 +24,8 @@ module RakeUI
     config.assets.digest = true
     config.public_file_server.enabled = true
 
+    config.assets.compile = false
+
     config.assets.paths << Rails.root.join('app', 'assets', 'images')
     config.assets.paths << Rails.root.join('app', 'assets', 'stylesheets')
     config.assets.paths << Rails.root.join('app', 'assets', 'javascripts')
