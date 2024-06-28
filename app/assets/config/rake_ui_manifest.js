@@ -1,4 +1,4 @@
-//= link_directory ../stylesheets/rake_ui
+//= link_directory ../stylesheets .css
 //= link_directory ../javascripts .js
 
 //= link application.css
