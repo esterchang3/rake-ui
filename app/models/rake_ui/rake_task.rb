@@ -92,13 +92,21 @@ module RakeUi
         raker_id: id
       )
 
-      puts "[rake_ui] [rake_task] [forked] #{rake_task_log.rake_command_with_logging}"
+      # puts "[rake_ui] [rake_task] [forked] #{rake_task_log.rake_command_with_logging}"
+      rake_task_log.rake_command_with_logging
 
       fork do
-        system(rake_task_log.rake_command_with_logging)
-
         system(rake_task_log.command_to_mark_log_finished)
       end
+
+      task_log = <<~STRING
+        id: #{id}
+        name: #{name}
+        args: #{args}
+        rake_command: #{rake_command}
+        rake_definition_file: #{rake_definition_file}
+      STRING
+      Rails.logger.info(task_log) 
 
       rake_task_log
     end
